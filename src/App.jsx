@@ -6,22 +6,18 @@ import { AiFillDelete } from "react-icons/ai";
 
 function App() {
   const [todo, setTodo] = useState("")
-  const [todos, setTodos] = useState([])
-  const [showFinished, setshowFinished] = useState(true)
-
-  useEffect(() => {
-    let todoString = localStorage.getItem("todos")
-    if (todoString) {
-      let todos = JSON.parse(todoString)
-      setTodos(todos)
-    }
-
-  }, [])
+  const [todos, setTodos] = useState(() => {
+    let todoString = localStorage.getItem("todos");
+    if(!todoString) return [];
+    return JSON.parse(todoString);
+  })
+  const [showFinished, setshowFinished] = useState(true);
 
 
   const saveToLS = () => {
     localStorage.setItem("todos", JSON.stringify(todos))
   }
+  saveToLS();
 
   const toggleFinished = () => {
     setshowFinished(!showFinished)
